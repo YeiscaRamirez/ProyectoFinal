@@ -1,75 +1,67 @@
 package com.example.ProyectoFinal.Entity;
 
-import java.persistence.*;
+
 import java.io.Serializable;
+import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
-import java.validation.constraints.Email;
-import java.validation.constraints.NotBlank;
-import java.validation.constraints.Size;
+import javax.persistence.Basic;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
+
 @Entity
-@Table(name ="Usuario",
-        uniqueConstraints = {
-        @UniqueConstraint(columnNames = "email")
-})
+@Table(name ="Usuario")
+
+
 public class Usuario implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long user_id;
+    private Long usuario_id;
 
-    @NotBlank
-    @Size(max = 20)
+    @Column(length = 50)
     private String nombre;
 
-    @NotBlank
-    @Size(max = 20)
+    @Column(length =50)
     private String apellido;
 
-    @NotBlank
-    @Size(max = 50)
-    @Email
+   @Column(nullable=false, length = 50, unique = true)
     private String email;
 
-    public Usuario() {
-    }
-
-    @NotBlank
-    @Size(max = 120)
+    @Column(nullable=false, length = 8)
     private String password;
 
     @Column(name = "FechaCreacion")
     @Basic
-    private java.sql.Date FechaCreacion;
+    private LocalDate date= LocalDate.now();
 
-    @NotBlank
-    @Size(max = 20)
+    @Column(nullable=false, length = 60)
     private String ciudad;
 
-    @NotBlank
-    @Size(max = 20)
+   @Column(nullable=false, length = 60)
     private String provincia;
 
-    @NotBlank
-    @Size(max = 20)
+    @Column(nullable=false, length = 20)
     private String pais;
-
-
-   
-   
-  public Usuario(String nombre, String apellido,String email, String encode, String fecha, String ciudad, String provincia, String pais) {
+ 
+  public Usuario(String nombre, String apellido,String email, String encode, String ciudad, String provincia, String pais) {
      this.nombre = nombre;
      this.apellido = apellido;
      this.email = email;
      this.password=encode;
-     this.FechaCreacion = fecha;
+     this.date = date;
      this.ciudad = ciudad;
      this.provincia = provincia;
      this.pais = pais;
     }
 
+  @OneToMany
+  private List<Post> post = new ArrayList<>();
   public Long getUsuario_id() {
      return usuario_id;
     }
@@ -110,12 +102,12 @@ public class Usuario implements Serializable {
      this.password = password;
     }
 
-   public String getFechaCreacion() {
-     return fecha;
+   public LocalDate getFechaCreacion() {
+     return date ;
     }
 
-  public void setFechaCreacion(String FechaCreacion) {
-     this.FechaCreacion = FechaCreacion;
+  public void setFechaCreacion(LocalDate date) {
+     this.date = date;
     }
 
    public String getCiudad() {
@@ -141,4 +133,8 @@ public class Usuario implements Serializable {
   public void setPais(String pais) {
      this.pais = pais;
    }
+public void addPost(Post post){
+    this.post.add(post);
+    Post.setAutor(this);
+}
 }
