@@ -30,13 +30,13 @@ public class UsuarioController {
         return usuarioService.findAll(pageable);
     }
     //crear nuevo usuario
-    @PostMapping
+    @PostMapping("/api/users")
     public ResponseEntity<?> create (@RequestBody Usuario usuario){
         return ResponseEntity.status(HttpStatus.CREATED).body(usuarioService.save(usuario));
     }
 
     //obtener todos los usuarios
-   @GetMapping()
+   @GetMapping("/api/users")
     public ResponseEntity<?> getUsuario() {
         return new ResponseEntity<>(usuarioService.findAll(), HttpStatus.OK); }
 
@@ -53,7 +53,7 @@ public class UsuarioController {
 
 
     //modificar un usuario segun id
-    @PutMapping("/usuario")
+    @PutMapping("/users")
     public ResponseEntity<?> editUsuario (@RequestBody Usuario usuarioDetails, @PathVariable Long usuarioId) {
         Optional<Usuario> usuario = usuarioService.findById(usuarioId);
         if (!usuario.isPresent()) {

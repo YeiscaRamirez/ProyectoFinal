@@ -20,7 +20,7 @@ public class PostController {
     private PostService postService;
 
     //obtener todos los post
-    @GetMapping()
+    @GetMapping("/api/v1/post")
     public ResponseEntity<?> getPost() {
         return new ResponseEntity<>(postService.findAll(), HttpStatus.OK);
     }
@@ -36,7 +36,7 @@ public class PostController {
         return new ResponseEntity<>(postSinPublicar, HttpStatus.OK); }
 */
     //crear post
-    @PostMapping
+    @PostMapping("/api/v1/post")
     public ResponseEntity<?> crearPost(@RequestBody Post post) {
         return ResponseEntity.status(HttpStatus.CREATED).body(postService.save(post)) ;}
 

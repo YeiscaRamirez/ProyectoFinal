@@ -19,13 +19,13 @@ public class ComentarioController {
     private ComentarioService comentarioService;
 
     //crear comentario
-    @PostMapping
+    @PostMapping("/api/v1/comentario")
     public ResponseEntity<?>crearComentario(@RequestBody Comentario comentario) {
         return new ResponseEntity<>(comentarioService.save(comentario), HttpStatus.CREATED);
     }
 
     //obtener todos los comentarios
-    @GetMapping()
+    @GetMapping("/api/v1/comentario")
     public ResponseEntity<?> getComentario() {
         return new ResponseEntity<>(comentarioService.findAll(), HttpStatus.OK);
     }
