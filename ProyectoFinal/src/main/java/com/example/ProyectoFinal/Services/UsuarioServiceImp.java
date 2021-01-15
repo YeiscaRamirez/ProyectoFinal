@@ -48,14 +48,16 @@ public class UsuarioServiceImp implements UsuarioService {
     public void deleteById(Long id) {
         usuarioRepository.deleteById(id);
     }
-
+    
     @Override
-    public List<Usuario> findByDate(LocalDate date) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public List<Usuario> findByDate(LocalDate fecha){
+       return usuarioRepository.findByDate(fecha);
     }
-
+    
     @Override
     public List<Usuario> findByCiudad(String ciudad) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+      return usuarioRepository.findByCiudad(ciudad);
     }
+      
+ 
 }
